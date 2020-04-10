@@ -21,20 +21,20 @@ const Metrics: React.FC<IProps> = ({ course: { metric } }) => {
   const data: { label: string; value: number }[] = [
     {
       label: 'Reviews',
-      value: metric.reviews.count
+      value: metric.reviews.count,
     },
     {
       label: 'Avg. Difficulty',
-      value: metric.reviews.difficulty.mean
+      value: metric.reviews.difficulty.mean,
     },
     {
       label: 'Avg. Workload',
-      value: metric.reviews.workload.mean
+      value: metric.reviews.workload.mean,
     },
     {
       label: 'Avg. Rating',
-      value: metric.reviews.rating.mean
-    }
+      value: metric.reviews.rating.mean,
+    },
   ];
 
   return (

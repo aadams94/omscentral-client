@@ -36,7 +36,7 @@ interface IProps {
 
 const Login: React.FC<IProps> = ({ disabled, onSubmit, onSocialLogin }) => {
   const classes = useStyles();
-  const sm = useMediaQuery<Theme>(theme => theme.breakpoints.down('sm'));
+  const sm = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
   const { handleSubmit, register, errors } = useForm<FormData>();
   const firebase = useContext(FirebaseContext);
 
@@ -48,23 +48,23 @@ const Login: React.FC<IProps> = ({ disabled, onSubmit, onSocialLogin }) => {
     {
       key: 'facebook',
       icon: <FacebookIcon />,
-      provider: firebase.authProviders.facebook
+      provider: firebase.authProviders.facebook,
     },
     {
       key: 'github',
       icon: <GitHubIcon />,
-      provider: firebase.authProviders.github
+      provider: firebase.authProviders.github,
     },
     {
       key: 'google',
       icon: <GoogleIcon />,
-      provider: firebase.authProviders.google
+      provider: firebase.authProviders.google,
     },
     {
       key: 'twitter',
       icon: <TwitterIcon />,
-      provider: firebase.authProviders.twitter
-    }
+      provider: firebase.authProviders.twitter,
+    },
   ];
 
   return (
@@ -94,11 +94,11 @@ const Login: React.FC<IProps> = ({ disabled, onSubmit, onSocialLogin }) => {
                   required: true,
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'Invalid email address.'
-                  }
+                    message: 'Invalid email address.',
+                  },
                 })}
                 error={Boolean(errors.email)}
-                helperText={errors.email && errors.email.message}
+                helperText={errors.email?.message}
               />
             </Grid>
             <Grid item xs={12}>
@@ -116,11 +116,11 @@ const Login: React.FC<IProps> = ({ disabled, onSubmit, onSocialLogin }) => {
                   required: true,
                   minLength: {
                     value: 8,
-                    message: 'Must be at least 8 characters.'
-                  }
+                    message: 'Must be at least 8 characters.',
+                  },
                 })}
                 error={Boolean(errors.password)}
-                helperText={errors.password && errors.password.message}
+                helperText={errors.password?.message}
               />
             </Grid>
           </Grid>

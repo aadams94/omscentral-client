@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { FirebaseContext } from '../../../Firebase';
 import { NotificationContext } from '../../../Notification';
 import ResetPassword, { FormData } from './ResetPassword';

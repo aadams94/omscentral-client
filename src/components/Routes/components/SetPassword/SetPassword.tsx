@@ -67,11 +67,11 @@ const SetPassword: React.FC<IProps> = ({ email, disabled, onSubmit }) => {
                   required: true,
                   minLength: {
                     value: 8,
-                    message: 'Must be at least 8 characters.'
-                  }
+                    message: 'Must be at least 8 characters.',
+                  },
                 })}
                 error={Boolean(errors.password)}
-                helperText={errors.password && errors.password.message}
+                helperText={errors.password?.message}
               />
             </Grid>
           </Grid>

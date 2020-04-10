@@ -42,7 +42,7 @@ const ReviewForm: React.FC<IProps> = ({
   review,
   disabled,
   onSubmit,
-  onDelete
+  onDelete,
 }) => {
   const classes = useStyles();
 
@@ -57,8 +57,8 @@ const ReviewForm: React.FC<IProps> = ({
       difficulty: toString(review?.difficulty),
       workload: toString(review?.workload),
       rating: toString(review?.rating),
-      body: toString(review?.body)
-    }
+      body: toString(review?.body),
+    },
   });
 
   const { course_id } = watch();
@@ -74,13 +74,13 @@ const ReviewForm: React.FC<IProps> = ({
   );
 
   const toNumber = (value: any): number => Number(value);
-  const handleSubmitInternal = handleSubmit(form =>
+  const handleSubmitInternal = handleSubmit((form) =>
     onSubmit({
       ...form,
       id: form.id || '*',
       difficulty: toNumber(form.difficulty),
       workload: toNumber(form.workload),
-      rating: toNumber(form.rating)
+      rating: toNumber(form.rating),
     })
   );
 
@@ -135,7 +135,7 @@ const ReviewForm: React.FC<IProps> = ({
                 required
                 inputRef={register({ required: true })}
                 error={Boolean(errors.course_id)}
-                helperText={errors.course_id && errors.course_id.message}
+                helperText={errors.course_id?.message}
               />
             </Grid>
             <Grid item xs={12}>
@@ -151,7 +151,7 @@ const ReviewForm: React.FC<IProps> = ({
                 disabled={disabled || mode === 'view'}
                 inputRef={register({ required: true })}
                 error={Boolean(errors.semester_id)}
-                helperText={errors.semester_id && errors.semester_id.message}
+                helperText={errors.semester_id?.message}
                 SelectProps={{ native: true }}
               >
                 {data.semesters.map(({ id, name }) => (
@@ -174,7 +174,7 @@ const ReviewForm: React.FC<IProps> = ({
                 disabled={disabled || mode === 'view'}
                 inputRef={register({ required: true })}
                 error={Boolean(errors.difficulty)}
-                helperText={errors.difficulty && errors.difficulty.message}
+                helperText={errors.difficulty?.message}
                 SelectProps={{ native: true }}
               >
                 {reviewMeta.difficulty.map(({ value, label }) => (
@@ -199,15 +199,16 @@ const ReviewForm: React.FC<IProps> = ({
                   required: true,
                   min: {
                     value: 1,
-                    message: 'Workload must be at least 1 hour per week.'
+                    message: 'Workload must be at least 1 hour per week.',
                   },
                   max: {
                     value: 100,
-                    message: 'Workload may not be more than 100 hours per week.'
-                  }
+                    message:
+                      'Workload may not be more than 100 hours per week.',
+                  },
                 })}
                 error={Boolean(errors.workload)}
-                helperText={errors.workload && errors.workload.message}
+                helperText={errors.workload?.message}
               />
             </Grid>
             <Grid item xs={12}>
@@ -223,7 +224,7 @@ const ReviewForm: React.FC<IProps> = ({
                 disabled={disabled || mode === 'view'}
                 inputRef={register({ required: true })}
                 error={Boolean(errors.rating)}
-                helperText={errors.rating && errors.rating.message}
+                helperText={errors.rating?.message}
                 SelectProps={{ native: true }}
               >
                 {reviewMeta.rating.map(({ value, label }) => (
@@ -246,7 +247,7 @@ const ReviewForm: React.FC<IProps> = ({
                 disabled={disabled || mode === 'view'}
                 inputRef={register({ required: true })}
                 error={Boolean(errors.body)}
-                helperText={errors.body && errors.body.message}
+                helperText={errors.body?.message}
               />
             </Grid>
           </Grid>

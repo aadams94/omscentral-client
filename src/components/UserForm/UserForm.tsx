@@ -37,7 +37,7 @@ const UserForm: React.FC<IProps> = ({
   mode,
   user,
   disabled,
-  onSubmit
+  onSubmit,
 }) => {
   const classes = useStyles();
 
@@ -49,8 +49,8 @@ const UserForm: React.FC<IProps> = ({
         email: user?.email || '',
         name: user?.name || '',
         program_id: user?.program_id || '',
-        specialization_id: user?.specialization_id || ''
-      }
+        specialization_id: user?.specialization_id || '',
+      },
     }
   );
 
@@ -59,7 +59,9 @@ const UserForm: React.FC<IProps> = ({
   const specializations = useMemo(
     () =>
       program_id
-        ? (data?.specializations || []).filter(s => s.program_id === program_id)
+        ? (data?.specializations || []).filter(
+            (s) => s.program_id === program_id
+          )
         : [],
     [program_id, data]
   );
@@ -132,7 +134,7 @@ const UserForm: React.FC<IProps> = ({
                 disabled={disabled || mode === 'view'}
                 inputRef={register({ required: true })}
                 error={Boolean(errors.name)}
-                helperText={errors.name && errors.name.message}
+                helperText={errors.name?.message}
               />
             </Grid>
             <Grid item xs={12}>
@@ -151,7 +153,7 @@ const UserForm: React.FC<IProps> = ({
                 onChange={() => setValue('specialization_id', '')}
                 inputRef={register({ required: true })}
                 error={Boolean(errors.program_id)}
-                helperText={errors.program_id && errors.program_id.message}
+                helperText={errors.program_id?.message}
                 SelectProps={{ native: true }}
               >
                 {(data?.programs || []).map(({ id, name }) => (
@@ -176,9 +178,7 @@ const UserForm: React.FC<IProps> = ({
                 }
                 inputRef={register({ required: true })}
                 error={Boolean(errors.specialization_id)}
-                helperText={
-                  errors.specialization_id && errors.specialization_id.message
-                }
+                helperText={errors.specialization_id?.message}
                 SelectProps={{ native: true }}
               >
                 {specializations.map(({ id, name }) => (

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../../Auth';
 import { GET_USER_REVIEWS } from '../../../../data/queries';
 import ReviewCardListConnected from '../../../ReviewCardListConnected';

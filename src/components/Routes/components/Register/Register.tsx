@@ -53,11 +53,11 @@ const Register: React.FC<IProps> = ({ disabled, onSubmit }) => {
                   required: true,
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'Invalid email address.'
-                  }
+                    message: 'Invalid email address.',
+                  },
                 })}
                 error={Boolean(errors.email)}
-                helperText={errors.email && errors.email.message}
+                helperText={errors.email?.message}
               />
             </Grid>
             <Grid item xs={12}>
@@ -75,11 +75,11 @@ const Register: React.FC<IProps> = ({ disabled, onSubmit }) => {
                   required: true,
                   minLength: {
                     value: 8,
-                    message: 'Must be at least 8 characters.'
-                  }
+                    message: 'Must be at least 8 characters.',
+                  },
                 })}
                 error={Boolean(errors.password)}
-                helperText={errors.password && errors.password.message}
+                helperText={errors.password?.message}
               />
             </Grid>
           </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Apollo from './components/Apollo';
 import Auth from './components/Auth';

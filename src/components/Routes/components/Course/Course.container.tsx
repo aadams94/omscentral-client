@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_COURSE } from '../../../../data/queries';
@@ -10,8 +10,9 @@ const CourseContainer: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data } = useQuery<{ course: ICourse }>(GET_COURSE, {
     variables: {
-      id
-    }
+      id,
+    },
+    fetchPolicy: 'no-cache',
   });
 
   return (

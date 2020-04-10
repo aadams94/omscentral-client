@@ -7,7 +7,7 @@ interface IProps {
   disabled?: boolean;
   error?: boolean;
   getOptionLabel: (option?: any) => string;
-  helperText?: string;
+  helperText?: React.ReactNode;
   id: string;
   inputRef: (ref: any) => void;
   label: string;
@@ -35,7 +35,7 @@ const Typeahead: React.FC<IProps> = ({
   options,
   renderOption,
   required,
-  value
+  value,
 }) => (
   <Autocomplete
     id={`${id}_typeahead`}
@@ -47,7 +47,7 @@ const Typeahead: React.FC<IProps> = ({
     inputValue={value}
     onChange={onChange}
     renderOption={renderOption}
-    renderInput={params => (
+    renderInput={(params) => (
       <TextField
         {...params}
         id={id}

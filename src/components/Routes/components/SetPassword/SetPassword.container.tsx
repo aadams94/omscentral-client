@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import { FirebaseContext } from '../../../Firebase';
@@ -24,8 +24,8 @@ const SetPasswordContainer: React.FC = () => {
     setLoading(true);
     firebase.auth
       .verifyPasswordResetCode(oobCode)
-      .then(email => setEmail(email))
-      .catch(error => {
+      .then((email) => setEmail(email))
+      .catch((error) => {
         setError(true);
         notification.error(error.message);
       })

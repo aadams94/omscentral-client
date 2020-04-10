@@ -26,7 +26,7 @@ interface IProps {
 
 const ResetPassword: React.FC<IProps> = ({ disabled, onSubmit }) => {
   const classes = useStyles();
-  const sm = useMediaQuery<Theme>(theme => theme.breakpoints.down('sm'));
+  const sm = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
   const { handleSubmit, register, errors } = useForm<FormData>();
 
   return (
@@ -56,11 +56,11 @@ const ResetPassword: React.FC<IProps> = ({ disabled, onSubmit }) => {
                   required: true,
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'Invalid email address.'
-                  }
+                    message: 'Invalid email address.',
+                  },
                 })}
                 error={Boolean(errors.email)}
-                helperText={errors.email && errors.email.message}
+                helperText={errors.email?.message}
               />
             </Grid>
           </Grid>

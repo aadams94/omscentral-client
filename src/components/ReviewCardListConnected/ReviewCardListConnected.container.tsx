@@ -15,7 +15,7 @@ const ReviewCardListConnectedContainer: React.FC<IProps> = ({
   query,
   variables = {},
   pagination = true,
-  before
+  before,
 }) => {
   const [paginate, setPaginate] = useState(pagination);
   const [limit, setLimit] = useSession<number>('rcl:l', paginate ? 10 : 10e6);
@@ -25,27 +25,27 @@ const ReviewCardListConnectedContainer: React.FC<IProps> = ({
       ...variables,
       limit,
       orderByDesc: sortKey,
-      orderByDescToo: SortKey.Created
+      orderByDescToo: SortKey.Created,
     },
-    fetchPolicy: 'cache-and-network'
+    fetchPolicy: 'cache-and-network',
   });
 
   const handleLoadMore = () => {
     fetchMore({
       variables: {
-        offset: data!.reviews!.length
+        offset: data!.reviews!.length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult?.reviews?.length) {
           setPaginate(fetchMoreResult.reviews.length >= limit);
           return {
             ...prev,
-            reviews: prev.reviews.concat(fetchMoreResult.reviews)
+            reviews: prev.reviews.concat(fetchMoreResult.reviews),
           };
         }
         setPaginate(false);
         return prev;
-      }
+      },
     });
   };
 
