@@ -1,15 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   '@global': {
     body: {
-      paddingTop: theme.spacing(8)
-    }
+      paddingTop: theme.spacing(8),
+    },
   },
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   title: {
-    marginRight: theme.spacing(2)
-  }
+    marginRight: theme.spacing(2),
+  },
 }));

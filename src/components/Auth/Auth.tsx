@@ -17,7 +17,7 @@ interface IState {
 const initialState: IState = {
   initializing: true,
   authenticated: false,
-  user: null
+  user: null,
 };
 
 export const AuthContext = createContext<IState>(initialState);
@@ -28,13 +28,13 @@ const Auth: React.FC = ({ children }) => {
   const [insertUser] = useMutation<{ insertUser: IUser }>(INSERT_USER);
 
   useEffect(() => {
-    firebase.auth.onAuthStateChanged(async user => {
+    firebase.auth.onAuthStateChanged(async (user) => {
       apollo.resetStore();
 
       setState({
         initializing: false,
         authenticated: Boolean(user),
-        user
+        user,
       });
 
       if (!user) {
@@ -46,8 +46,8 @@ const Auth: React.FC = ({ children }) => {
 
       const result = await insertUser({
         variables: {
-          user: toInternal(user)
-        }
+          user: toInternal(user),
+        },
       });
 
       if (result.errors && result.errors.length) {

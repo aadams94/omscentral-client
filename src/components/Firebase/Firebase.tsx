@@ -47,8 +47,8 @@ const value: IFirebase = {
     twitter: (() => {
       // https://firebase.google.com/docs/auth/web/twitter-login
       return new firebase.auth.TwitterAuthProvider();
-    })()
-  }
+    })(),
+  },
 };
 
 export const FirebaseContext = createContext<IFirebase>(value);

@@ -15,7 +15,7 @@ import { useStyles } from './Navbar.styles';
 
 const Navbar: React.FC = () => {
   const classes = useStyles();
-  const xs = useMediaQuery<Theme>(theme => theme.breakpoints.down('xs'));
+  const xs = useMediaQuery<Theme>((theme) => theme.breakpoints.down('xs'));
   const firebase = useContext(FirebaseContext);
   const auth = useContext(AuthContext);
 

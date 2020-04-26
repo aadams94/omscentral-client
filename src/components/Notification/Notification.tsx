@@ -16,10 +16,10 @@ export const NotificationContext = createContext<Nullable<INotification>>(null);
 const Notification: React.FC = ({ children }) => {
   const [toast, setToast] = useState<Nullable<Partial<IToastProps>>>(null);
 
-  const notifyFnFactory = (variant: Variant): NotifyFn => message =>
+  const notifyFnFactory = (variant: Variant): NotifyFn => (message) =>
     setToast({
       variant,
-      message
+      message,
     });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Notification: React.FC = ({ children }) => {
         success: notifyFnFactory('success'),
         warning: notifyFnFactory('warning'),
         error: notifyFnFactory('error'),
-        info: notifyFnFactory('info')
+        info: notifyFnFactory('info'),
       }}
     >
       {children}

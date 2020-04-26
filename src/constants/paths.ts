@@ -10,11 +10,11 @@ export const paths = {
   resetPassword: '/reset-password',
   review: {
     create: '/review',
-    update: '/review/:id'
+    update: '/review/:id',
   },
   reviews: '/reviews',
   setPassword: '/set-password',
   terms: '/terms',
   userProfile: '/user/profile',
-  userReviews: '/user/reviews'
+  userReviews: '/user/reviews',
 };

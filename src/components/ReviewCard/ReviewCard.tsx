@@ -41,13 +41,13 @@ const ReviewCard: React.FC<IProps> = ({
     workload: w,
     rating: r,
     body,
-    created
+    created,
   },
   deepLink,
-  onDeepLinkCopy
+  onDeepLinkCopy,
 }) => {
   const classes = useStyles();
-  const xs = useMediaQuery<Theme>(theme => theme.breakpoints.down('xs'));
+  const xs = useMediaQuery<Theme>((theme) => theme.breakpoints.down('xs'));
   const history = useHistory();
   const auth = useContext(AuthContext);
 
@@ -79,18 +79,18 @@ const ReviewCard: React.FC<IProps> = ({
     {
       className: (classes as any)[`difficulty${d}`],
       label: difficulty,
-      tooltip: 'Difficulty'
+      tooltip: 'Difficulty',
     },
     {
       className: (classes as any)[`rating${r}`],
       label: rating,
-      tooltip: 'Rating'
+      tooltip: 'Rating',
     },
     {
       label: workload,
-      tooltip: 'Workload'
-    }
-  ].filter(chip => Boolean(chip?.label));
+      tooltip: 'Workload',
+    },
+  ].filter((chip) => Boolean(chip?.label));
   xs && chips.pop() && chips.pop();
 
   const handleEditClick = () => history.push(`/review/${id}`);

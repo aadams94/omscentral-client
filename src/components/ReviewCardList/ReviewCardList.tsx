@@ -22,7 +22,7 @@ const ReviewCardList: React.FC<IProps> = ({
   reviews,
   whenEmpty = <Typography>No reviews.</Typography>,
   before,
-  after
+  after,
 }) => {
   const notification = useContext(NotificationContext)!;
   const firebase = useContext(FirebaseContext);
@@ -35,7 +35,7 @@ const ReviewCardList: React.FC<IProps> = ({
     firebase.analytics.logEvent('share', {
       content_type: 'review',
       content_id: id,
-      method: 'copy_deep_link'
+      method: 'copy_deep_link',
     });
   };
 
@@ -52,7 +52,7 @@ const ReviewCardList: React.FC<IProps> = ({
               </Grid>
             )}
 
-            {reviews.map(review => (
+            {reviews.map((review) => (
               <Grid item xs={12} key={review.id}>
                 <ReviewCard
                   review={review}

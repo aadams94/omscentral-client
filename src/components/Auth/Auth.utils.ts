@@ -20,6 +20,6 @@ export const toInternal = (user: User): Partial<IUser> => {
     email,
     name,
     photo_url,
-    last_signed_in: new Date().getTime()
+    last_signed_in: new Date().getTime(),
   };
 };

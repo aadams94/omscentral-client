@@ -1,13 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   popover: {
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   paper: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   slider: {
-    width: 160
-  }
+    width: 160,
+  },
 }));

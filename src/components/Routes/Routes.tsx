@@ -14,84 +14,84 @@ interface IRoute {
 const routes: IRoute[] = [
   {
     path: paths.privacy,
-    component: lazy(() => import('./components/Privacy'))
+    component: lazy(() => import('./components/Privacy')),
   },
   {
     path: paths.terms,
-    component: lazy(() => import('./components/Terms'))
+    component: lazy(() => import('./components/Terms')),
   },
   {
     path: paths.error,
-    component: lazy(() => import('./components/Error'))
+    component: lazy(() => import('./components/Error')),
   },
   {
     path: paths.landing,
-    component: Courses
+    component: Courses,
   },
   {
     path: paths.courses,
-    component: Courses
+    component: Courses,
   },
   {
     path: paths.course,
-    component: lazy(() => import('./components/Course'))
+    component: lazy(() => import('./components/Course')),
   },
   {
     path: paths.review.create,
     component: lazy(() => import('./components/ReviewCreate')),
-    auth: true
+    auth: true,
   },
   {
     path: paths.review.update,
-    component: lazy(() => import('./components/ReviewUpdate'))
+    component: lazy(() => import('./components/ReviewUpdate')),
   },
   {
     path: paths.recent,
-    component: Reviews
+    component: Reviews,
   },
   {
     path: paths.reviews,
-    component: Reviews
+    component: Reviews,
   },
   {
     path: paths.login,
     component: lazy(() => import('./components/Login')),
-    auth: false
+    auth: false,
   },
   {
     path: paths.register,
     component: lazy(() => import('./components/Register')),
-    auth: false
+    auth: false,
   },
   {
     path: paths.resetPassword,
     component: lazy(() => import('./components/ResetPassword')),
-    auth: false
+    auth: false,
   },
   {
     path: paths.setPassword,
     component: lazy(() => import('./components/SetPassword')),
-    auth: false
+    auth: false,
   },
   {
     path: paths.userProfile,
     component: lazy(() => import('./components/UserProfile')),
-    auth: true
+    auth: true,
   },
   {
     path: paths.userReviews,
     component: lazy(() => import('./components/UserReviews')),
-    auth: true
+    auth: true,
   },
   {
     path: '*',
-    component: () => <Redirect to="/error/404" />
-  }
+    component: () => <Redirect to="/error/404" />,
+  },
 ];
 
 const Routes: React.FC = () => (
   <Switch>
-    {routes.map(route => (
+    {routes.map((route) => (
       <Route key={route.path} exact {...route} />
     ))}
   </Switch>

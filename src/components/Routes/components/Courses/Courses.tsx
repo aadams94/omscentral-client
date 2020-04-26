@@ -56,7 +56,7 @@ interface IProps {
 
 const Courses: React.FC<IProps> = ({ courses, loading }) => {
   const classes = useStyles();
-  const sm = useMediaQuery<Theme>(theme => theme.breakpoints.down('sm'));
+  const sm = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
   const history = useHistory();
   const notification = useContext(NotificationContext)!;
   const firebase = useContext(FirebaseContext);
@@ -81,7 +81,7 @@ const Courses: React.FC<IProps> = ({ courses, loading }) => {
     if (c.metric?.reviews.count) {
       firebase.analytics.logEvent('select_content', {
         content_type: 'course',
-        content_id: c.id
+        content_id: c.id,
       });
       history.push(`/course/${c.id}`);
     } else {
@@ -99,7 +99,7 @@ const Courses: React.FC<IProps> = ({ courses, loading }) => {
 
   const filterRegex = new RegExp(filter, 'i');
   const filterBy: (course: ICourse) => boolean = useMemo(
-    () => c =>
+    () => (c) =>
       (deprecated || !c.deprecated) &&
       (!foundational || c.foundational) &&
       (!filter || filterRegex.test([c.id, c.department, c.name].join(' '))),
@@ -133,7 +133,7 @@ const Courses: React.FC<IProps> = ({ courses, loading }) => {
           <Table className={classes.table} size={size} aria-label="courses">
             <TableHead>
               <TableRow>
-                {cells.map(id => (
+                {cells.map((id) => (
                   <HeadCell
                     key={id}
                     id={id}
@@ -150,7 +150,7 @@ const Courses: React.FC<IProps> = ({ courses, loading }) => {
                   <TableCell colSpan={cells.length}>No matches...</TableCell>
                 </TableRow>
               )}
-              {stableSort<ICourse>(filtered, sortBy).map(c => (
+              {stableSort<ICourse>(filtered, sortBy).map((c) => (
                 <TableRow key={c.id} onClick={handleBodyRowClick(c)} hover>
                   <TableCell>{`${c.department}-${c.number}`}</TableCell>
                   <TableCell className={classes.name}>

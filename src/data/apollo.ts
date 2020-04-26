@@ -10,25 +10,25 @@ const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ networkError }) => {
       if (networkError) {
-        const code = (networkError as any).statusCode || 0;
+        // const code = (networkError as any).statusCode || 0;
+        const code = 500;
         browserHistory.push(`/error/${code}`);
       }
     }),
     new ApolloLink((operation, forward) => {
       operation.setContext({
         headers: {
-          authorization: localStorage.getItem('token') || null
-        }
+          Authorization: localStorage.getItem('token') || null,
+        },
       });
 
       return forward(operation);
     }),
     new HttpLink({
       uri: apolloConfig.uri,
-      credentials: 'same-origin'
-    })
+    }),
   ]),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 export default client;

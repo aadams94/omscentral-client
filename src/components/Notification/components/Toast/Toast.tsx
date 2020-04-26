@@ -14,7 +14,7 @@ const variantIcon = {
   success: CheckCircleIcon,
   warning: WarningIcon,
   error: ErrorIcon,
-  info: InfoIcon
+  info: InfoIcon,
 };
 
 export type Variant = 'success' | 'warning' | 'error' | 'info';
@@ -52,7 +52,7 @@ const Toast: React.FC<IProps> = ({ message, variant, onClose }) => {
             onClick={onClose}
           >
             <CloseIcon className={classes.icon} />
-          </IconButton>
+          </IconButton>,
         ]}
       />
     </Snackbar>

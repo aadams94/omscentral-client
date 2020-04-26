@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(8),
@@ -9,7 +9,7 @@ export const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       marginTop: 0,
-      marginBottom: theme.spacing(12)
-    }
-  }
+      marginBottom: theme.spacing(12),
+    },
+  },
 }));

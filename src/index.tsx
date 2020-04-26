@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Apollo from './components/Apollo';
@@ -9,7 +9,7 @@ import Notification from './components/Notification';
 import Theme from './components/Theme';
 import App from './components/App';
 
-ReactDOM.render(
+render(
   <CssBaseline>
     <Theme>
       <Apollo>

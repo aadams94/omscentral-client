@@ -23,7 +23,7 @@ const Menu: React.FC<IProps> = ({
   icon,
   edge,
   items,
-  closeOnClick = true
+  closeOnClick = true,
 }) => {
   const [anchorEl, setAnchorEl] = useState<Nullable<Element>>(null);
   const [open, setOpen] = useState<boolean>(false);

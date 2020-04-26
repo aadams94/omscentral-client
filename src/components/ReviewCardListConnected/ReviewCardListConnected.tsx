@@ -21,7 +21,7 @@ const ReviewCardListConnected: React.FC<IProps> = ({
   onSortKeyChange,
   onLoadMore,
   loading,
-  before
+  before,
 }) => (
   <ReviewCardList
     loading={loading}

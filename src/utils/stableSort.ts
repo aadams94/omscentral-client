@@ -7,5 +7,5 @@ export default function stableSort<T>(array: T[], cmp: (a: T, b: T) => number) {
     return a[1] - b[1];
   });
 
-  return stablized.map(el => el[0]);
+  return stablized.map((el) => el[0]);
 }

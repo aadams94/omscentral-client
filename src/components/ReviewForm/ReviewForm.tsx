@@ -122,7 +122,7 @@ const ReviewForm: React.FC<IProps> = ({
                 noOptionsText="No matching courses..."
                 disabled={disabled || mode === 'view'}
                 options={data.courses}
-                getOptionLabel={({ id }: ICourse) => id}
+                getOptionLabel={({ id, name }: ICourse) => `${id} ${name}`}
                 value={course_id}
                 onChange={(e, c?: ICourse) =>
                   setValue('course_id', c?.id || '')

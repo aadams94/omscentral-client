@@ -11,7 +11,7 @@ export enum SortKey {
   Reviews = 'reviews',
   Difficulty = 'difficulty',
   Workload = 'workload',
-  Rating = 'rating'
+  Rating = 'rating',
 }
 
 export const cells = [
@@ -22,7 +22,7 @@ export const cells = [
   SortKey.Reviews,
   SortKey.Difficulty,
   SortKey.Workload,
-  SortKey.Rating
+  SortKey.Rating,
 ];
 
 export type SortDirection = 'asc' | 'desc';
@@ -37,42 +37,42 @@ const config: {
 } = {
   [SortKey.Id]: {
     label: 'ID',
-    width: 160
+    width: 160,
   },
   [SortKey.Name]: {
     label: 'Name',
-    className: 'name'
+    className: 'name',
   },
   [SortKey.Foundational]: {
     label: 'Foundational?',
     align: 'center',
-    width: 160
+    width: 160,
   },
   [SortKey.Deprecated]: {
     label: 'Deprecated?',
     align: 'center',
-    width: 160
+    width: 160,
   },
   [SortKey.Reviews]: {
     label: 'Reviews',
     align: 'center',
-    width: 160
+    width: 160,
   },
   [SortKey.Difficulty]: {
     label: 'Difficulty (1-5)',
     align: 'center',
-    width: 160
+    width: 160,
   },
   [SortKey.Workload]: {
     label: 'Workload (hrs/wk)',
     align: 'center',
-    width: 160
+    width: 160,
   },
   [SortKey.Rating]: {
     label: 'Rating (1-5)',
     align: 'center',
-    width: 160
-  }
+    width: 160,
+  },
 };
 
 interface IProps {

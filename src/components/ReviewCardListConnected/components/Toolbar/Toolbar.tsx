@@ -7,7 +7,7 @@ import { useStyles } from './Toolbar.styles';
 
 export enum SortKey {
   Created = 'created',
-  Semester = 'semester_id'
+  Semester = 'semester_id',
 }
 
 interface IProps {
@@ -21,7 +21,7 @@ const Toolbar: React.FC<IProps> = ({ sortKey, onSortKeyChange, message }) => {
 
   const items: [SortKey, string][] = [
     [SortKey.Semester, 'Semester'],
-    [SortKey.Created, 'Created']
+    [SortKey.Created, 'Created'],
   ];
 
   return (
@@ -41,7 +41,7 @@ const Toolbar: React.FC<IProps> = ({ sortKey, onSortKeyChange, message }) => {
             <Typography className={sortKey === key ? classes.bold : undefined}>
               {label}
             </Typography>
-          )
+          ),
         }))}
       />
     </div>

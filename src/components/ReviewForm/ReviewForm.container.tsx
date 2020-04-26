@@ -9,7 +9,7 @@ import {
   GET_SEMESTERS,
   INSERT_REVIEW as INSERT,
   UPDATE_REVIEW as UPDATE,
-  DELETE_REVIEW as DELETE
+  DELETE_REVIEW as DELETE,
 } from '../../data/queries';
 import { AuthContext } from '../Auth';
 import ReviewForm, { FormData } from './ReviewForm';
@@ -31,13 +31,13 @@ const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
 
   const [courses, semesters] = [
     useQuery<{ courses: ICourse[] }>(GET_COURSES),
-    useQuery<{ semesters: ISemester[] }>(GET_SEMESTERS)
+    useQuery<{ semesters: ISemester[] }>(GET_SEMESTERS),
   ];
 
   const [
     [insert, { loading: creating }],
     [update, { loading: updating }],
-    [remove, { loading: removing }]
+    [remove, { loading: removing }],
   ] = [
     useMutation<{ insertReview: IReview }, { review: Partial<IReview> }>(
       INSERT
@@ -45,7 +45,7 @@ const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
     useMutation<{ updateReview: IReview }, { review: Partial<IReview> }>(
       UPDATE
     ),
-    useMutation<{ deleteReview: IReview }, { id: string }>(DELETE)
+    useMutation<{ deleteReview: IReview }, { id: string }>(DELETE),
   ];
 
   const handleSubmit = async (form: FormData) => {
@@ -56,14 +56,14 @@ const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
           variables: {
             review: {
               ...form,
-              author_id
-            }
-          }
+              author_id,
+            },
+          },
         });
 
         firebase.analytics.logEvent('create_item', {
           content_type: 'review',
-          content_id: result.data!.insertReview.id
+          content_id: result.data!.insertReview.id,
         });
 
         notification.success('Review published.');
@@ -74,10 +74,12 @@ const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
 
         firebase.analytics.logEvent('update_item', {
           content_type: 'review',
-          content_id: review!.id
+          content_id: review!.id,
         });
 
         notification.success('Review updated.');
+
+        history.push(`/course/${form.course_id}`);
       }
     } catch {
       notification.error('Something went wrong.');
@@ -90,7 +92,7 @@ const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
 
       firebase.analytics.logEvent('delete_item', {
         content_type: 'review',
-        content_id: review!.id
+        content_id: review!.id,
       });
 
       notification.success('Review deleted.');

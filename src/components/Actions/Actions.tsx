@@ -2,7 +2,6 @@ import React, { useContext, useState, useMemo } from 'react';
 import { useHistory } from 'react-router';
 import EditIcon from '@material-ui/icons/Edit';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import LegacyIcon from '@material-ui/icons/Launch';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
@@ -13,7 +12,6 @@ import { useStyles } from './Actions.styles';
 enum Action {
   CreateReview = 'create-review',
   OpenTableau = 'open-tableau',
-  OpenLegacy = 'open-legacy'
 }
 
 interface IAction {
@@ -28,18 +26,13 @@ const actions: IAction[] = [
     key: Action.CreateReview,
     auth: true,
     name: 'Create Review',
-    icon: <EditIcon />
+    icon: <EditIcon />,
   },
   {
     key: Action.OpenTableau,
     name: 'Tableau Grade Reports',
-    icon: <BarChartIcon />
+    icon: <BarChartIcon />,
   },
-  {
-    key: Action.OpenLegacy,
-    name: 'Legacy Website',
-    icon: <LegacyIcon />
-  }
 ];
 
 const Actions: React.FC = () => {
@@ -63,15 +56,13 @@ const Actions: React.FC = () => {
         return history.push(paths.review.create);
       case Action.OpenTableau:
         return window.open('https://tableau.gatech.edu');
-      case Action.OpenLegacy:
-        return window.open('https://gt-surveyor.firebaseapp.com');
       default:
         return;
     }
   };
 
   const available = useMemo(
-    () => actions.filter(action => !action.auth || auth.authenticated),
+    () => actions.filter((action) => !action.auth || auth.authenticated),
     [auth.authenticated]
   );
 

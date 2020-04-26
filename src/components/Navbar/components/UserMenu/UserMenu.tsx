@@ -9,7 +9,7 @@ const UserMenu: React.FC = () => (
     icon={<AccountCircle />}
     items={[
       { key: 'profile', path: paths.userProfile, caption: 'My Profile' },
-      { key: 'reviews', path: paths.userReviews, caption: 'My Reviews' }
+      { key: 'reviews', path: paths.userReviews, caption: 'My Reviews' },
     ]}
   />
 );

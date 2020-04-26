@@ -5,7 +5,7 @@ import { ISpecialization, IUser, IProgram } from '../../data/interfaces';
 import {
   GET_PROGRAMS,
   GET_SPECIALIZATIONS,
-  UPDATE_USER
+  UPDATE_USER,
 } from '../../data/queries';
 import { AuthContext } from '../Auth';
 import UserForm, { FormData } from './UserForm';
@@ -19,12 +19,12 @@ const UserFormContainer: React.FC<IProps> = ({ user }) => {
   const auth = useContext(AuthContext);
   const mode = useMemo(() => (auth.user?.uid === user.id ? 'edit' : 'view'), [
     auth,
-    user
+    user,
   ]);
 
   const [programs, specializations] = [
     useQuery<{ programs: IProgram[] }>(GET_PROGRAMS),
-    useQuery<{ specializations: ISpecialization[] }>(GET_SPECIALIZATIONS)
+    useQuery<{ specializations: ISpecialization[] }>(GET_SPECIALIZATIONS),
   ];
 
   const [update, updateResult] = useMutation(UPDATE_USER);

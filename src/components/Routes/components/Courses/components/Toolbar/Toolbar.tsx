@@ -28,7 +28,7 @@ const Toolbar: React.FC<IProps> = ({
   deprecated,
   onDeprecatedChange,
   filter,
-  onFilterChange
+  onFilterChange,
 }) => {
   const classes = useStyles();
 
