@@ -1,14 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router';
-import { useQuery } from '@apollo/react-hooks';
-import { IReview } from '../../../../data/interfaces';
-import { GET_REVIEW } from '../../../../data/queries';
+
+import { useReviewQuery } from 'src/graphql';
 import ReviewUpdate from './ReviewUpdate';
 
 const ReviewUpdateContainer: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data } = useQuery<{ review: IReview }>(GET_REVIEW, {
+  const { data } = useReviewQuery({
     variables: {
       id,
     },

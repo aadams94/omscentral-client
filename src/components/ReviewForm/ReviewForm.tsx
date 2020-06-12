@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
@@ -6,37 +6,28 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+
+import { reviewMeta } from 'src/constants';
+import { ReviewQuery, ReviewInputType, Course, Semester } from 'src/graphql';
 import Button from '../Button';
 import Paper from '../Paper';
 import Typeahead from '../Typeahead';
 import White from '../White';
-import { ICourse, ISemester, IReview } from '../../data/interfaces';
-import { reviewMeta } from '../../constants';
 import { useStyles } from './ReviewForm.styles';
 
-export type FormData<T = number> = {
-  id: string;
-  course_id: string;
-  semester_id: string;
-  difficulty: T;
-  workload: T;
-  rating: T;
-  body: string;
-};
-
-interface IProps {
+interface Props {
   data: {
-    courses: ICourse[];
-    semesters: ISemester[];
+    courses: Course[];
+    semesters: Semester[];
   };
   mode: 'make' | 'edit' | 'view';
-  review?: IReview;
+  review?: ReviewQuery['review'];
   disabled?: boolean;
-  onSubmit: (form: FormData) => void;
+  onSubmit: (review: ReviewInputType) => void;
   onDelete: () => void;
 }
 
-const ReviewForm: React.FC<IProps> = ({
+const ReviewForm: React.FC<Props> = ({
   data,
   mode,
   review,
@@ -48,30 +39,27 @@ const ReviewForm: React.FC<IProps> = ({
 
   const toString = (value: any): string => (value || '').toString();
   const { handleSubmit, register, errors, watch, setValue } = useForm<
-    FormData<string>
+    ReviewInputType
   >({
     defaultValues: {
       id: review?.id,
       course_id: review?.course_id || '',
       semester_id: review?.semester_id || '',
-      difficulty: toString(review?.difficulty),
-      workload: toString(review?.workload),
-      rating: toString(review?.rating),
+      difficulty: review?.difficulty || undefined,
+      workload: review?.workload || undefined,
+      rating: review?.rating || undefined,
       body: toString(review?.body),
     },
   });
 
   const { course_id } = watch();
 
-  const [title, action] = useMemo(
-    () =>
-      mode === 'make'
-        ? ['Create Review', 'Create']
-        : mode === 'edit'
-        ? ['Update Review', 'Update']
-        : ['Review', null],
-    [mode]
-  );
+  const [title, action] =
+    mode === 'make'
+      ? ['Create Review', 'Create']
+      : mode === 'edit'
+      ? ['Update Review', 'Update']
+      : ['Review', null];
 
   const toNumber = (value: any): number => Number(value);
   const handleSubmitInternal = handleSubmit((form) =>
@@ -81,7 +69,7 @@ const ReviewForm: React.FC<IProps> = ({
       difficulty: toNumber(form.difficulty),
       workload: toNumber(form.workload),
       rating: toNumber(form.rating),
-    })
+    }),
   );
 
   if (!data?.courses?.length || !data?.semesters?.length) {
@@ -122,12 +110,10 @@ const ReviewForm: React.FC<IProps> = ({
                 noOptionsText="No matching courses..."
                 disabled={disabled || mode === 'view'}
                 options={data.courses}
-                getOptionLabel={({ id, name }: ICourse) => `${id} ${name}`}
+                getOptionLabel={({ id, name }: Course) => `${id} ${name}`}
                 value={course_id}
-                onChange={(e, c?: ICourse) =>
-                  setValue('course_id', c?.id || '')
-                }
-                renderOption={({ id, name }: ICourse) => (
+                onChange={(e, c?: Course) => setValue('course_id', c?.id || '')}
+                renderOption={({ id, name }: Course) => (
                   <Typography noWrap>
                     {id} {name}
                   </Typography>

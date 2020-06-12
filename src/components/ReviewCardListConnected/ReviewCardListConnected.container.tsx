@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { IReview } from '../../data/interfaces';
-import useSession from '../../utils/useSessionStorage';
+
+import { useReviewsQuery, ReviewsQueryVariables } from 'src/graphql';
+import useSession from 'src/utils/useSessionStorage';
 import ReviewCardListConnected, { SortKey } from './ReviewCardListConnected';
 
-interface IProps {
-  query: any;
-  variables?: any;
+interface Props {
+  variables?: ReviewsQueryVariables;
   pagination?: boolean;
   before?: JSX.Element;
 }
 
-const ReviewCardListConnectedContainer: React.FC<IProps> = ({
-  query,
+const ReviewCardListConnectedContainer: React.FC<Props> = ({
   variables = {},
   pagination = true,
   before,
@@ -20,12 +18,11 @@ const ReviewCardListConnectedContainer: React.FC<IProps> = ({
   const [paginate, setPaginate] = useState(pagination);
   const [limit, setLimit] = useSession<number>('rcl:l', paginate ? 10 : 10e6);
   const [sortKey, setSortKey] = useSession<SortKey>('rcl:sk', SortKey.Semester);
-  const { data, loading, fetchMore } = useQuery<{ reviews: IReview[] }>(query, {
+  const { data, loading, fetchMore } = useReviewsQuery({
     variables: {
       ...variables,
       limit,
-      orderByDesc: sortKey,
-      orderByDescToo: SortKey.Created,
+      order_by_desc: [sortKey, SortKey.Created],
     },
     fetchPolicy: 'cache-and-network',
   });
@@ -42,9 +39,10 @@ const ReviewCardListConnectedContainer: React.FC<IProps> = ({
             ...prev,
             reviews: prev.reviews.concat(fetchMoreResult.reviews),
           };
+        } else {
+          setPaginate(false);
+          return prev;
         }
-        setPaginate(false);
-        return prev;
       },
     });
   };

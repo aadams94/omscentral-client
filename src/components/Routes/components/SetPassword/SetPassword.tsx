@@ -10,21 +10,21 @@ import Button from '../../../Button';
 import Link from '../../../Link';
 import Paper from '../../../Paper';
 import White from '../../../White';
-import { Nullable } from '../../../../core';
-import { paths } from '../../../../constants';
+import { Nullable } from 'src/core';
+import { paths } from 'src/constants';
 import { useStyles } from './SetPassword.styles';
 
 export type FormData = {
   password: string;
 };
 
-interface IProps {
+interface Props {
   email: Nullable<string>;
   disabled?: boolean;
   onSubmit: (form: FormData) => void;
 }
 
-const SetPassword: React.FC<IProps> = ({ email, disabled, onSubmit }) => {
+const SetPassword: React.FC<Props> = ({ email, disabled, onSubmit }) => {
   const classes = useStyles();
   const { handleSubmit, register, errors } = useForm<FormData>();
 

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router';
 import { Theme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Container from '@material-ui/core/Container';
 import MaterialPaper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,21 +9,23 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { Course } from 'src/graphql';
+import { FirebaseContext } from 'src/components/Firebase/Firebase';
+import { NotificationContext } from 'src/components/Notification';
+import compare from 'src/utils/compare';
+import Loading from 'src/components/Loading';
+import Paper from 'src/components/Paper';
+import stableSort from 'src/utils/stableSort';
+import useLocal from 'src/utils/useLocalStorage';
+import useSession from 'src/utils/useSessionStorage';
 import HeadCell, { SortKey, SortDirection, cells } from './components/HeadCell';
-import Toolbar from './components/Toolbar';
 import Stats from './components/Stats';
-import Paper from '../../../Paper';
-import compare from '../../../../utils/compare';
-import stableSort from '../../../../utils/stableSort';
-import useLocal from '../../../../utils/useLocalStorage';
-import useSession from '../../../../utils/useSessionStorage';
-import Loading from '../../../Loading';
-import { NotificationContext } from '../../../Notification/Notification';
-import { FirebaseContext } from '../../../Firebase/Firebase';
-import { ICourse } from '../../../../data/interfaces';
+import Toolbar from './components/Toolbar';
 import { useStyles } from './Courses.styles';
 
-const sort = (a: ICourse, b: ICourse, orderBy: SortKey): number => {
+const sort = (a: Course, b: Course, orderBy: SortKey): number => {
   const aMetric = a.metric?.reviews;
   const bMetric = b.metric?.reviews;
   switch (orderBy) {
@@ -49,12 +50,12 @@ const sort = (a: ICourse, b: ICourse, orderBy: SortKey): number => {
   }
 };
 
-interface IProps {
-  courses?: ICourse[];
+interface Props {
+  courses?: Course[];
   loading?: boolean;
 }
 
-const Courses: React.FC<IProps> = ({ courses, loading }) => {
+const Courses: React.FC<Props> = ({ courses, loading }) => {
   const classes = useStyles();
   const sm = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
   const history = useHistory();
@@ -77,7 +78,7 @@ const Courses: React.FC<IProps> = ({ courses, loading }) => {
     setOrderBy(id);
   };
 
-  const handleBodyRowClick = (c: ICourse) => () => {
+  const handleBodyRowClick = (c: Course) => () => {
     if (c.metric?.reviews.count) {
       firebase.analytics.logEvent('select_content', {
         content_type: 'course',
@@ -89,21 +90,22 @@ const Courses: React.FC<IProps> = ({ courses, loading }) => {
     }
   };
 
-  const sortBy: (a: ICourse, b: ICourse) => number = useMemo(
+  const sortBy: (a: Course, b: Course) => number = useMemo(
     () =>
       order === 'desc'
         ? (a, b) => -sort(a, b, orderBy)
         : (a, b) => +sort(a, b, orderBy),
-    [order, orderBy]
+    [order, orderBy],
   );
 
+  // eslint-disable-next-line
   const filterRegex = new RegExp(filter, 'i');
-  const filterBy: (course: ICourse) => boolean = useMemo(
+  const filterBy: (course: Course) => boolean = useMemo(
     () => (c) =>
       (deprecated || !c.deprecated) &&
       (!foundational || c.foundational) &&
       (!filter || filterRegex.test([c.id, c.department, c.name].join(' '))),
-    [deprecated, foundational, filter, filterRegex]
+    [deprecated, foundational, filter, filterRegex],
   );
 
   if (loading) {
@@ -150,7 +152,7 @@ const Courses: React.FC<IProps> = ({ courses, loading }) => {
                   <TableCell colSpan={cells.length}>No matches...</TableCell>
                 </TableRow>
               )}
-              {stableSort<ICourse>(filtered, sortBy).map((c) => (
+              {stableSort<Course>(filtered, sortBy).map((c) => (
                 <TableRow key={c.id} onClick={handleBodyRowClick(c)} hover>
                   <TableCell>{`${c.department}-${c.number}`}</TableCell>
                   <TableCell className={classes.name}>

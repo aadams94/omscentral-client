@@ -1,37 +1,35 @@
-import React, { useContext, useMemo } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { NotificationContext } from '../Notification';
-import { ISpecialization, IUser, IProgram } from '../../data/interfaces';
-import {
-  GET_PROGRAMS,
-  GET_SPECIALIZATIONS,
-  UPDATE_USER,
-} from '../../data/queries';
-import { AuthContext } from '../Auth';
-import UserForm, { FormData } from './UserForm';
+import React, { useContext } from 'react';
 
-interface IProps {
-  user: IUser;
+import {
+  useProgramsQuery,
+  useSpecializationsQuery,
+  useUpdateUserMutation,
+  UserQuery,
+  UserInputType,
+} from 'src/graphql';
+import { AuthContext } from '../Auth';
+import { NotificationContext } from '../Notification';
+import UserForm from './UserForm';
+
+interface Props {
+  user: UserQuery['user'];
 }
 
-const UserFormContainer: React.FC<IProps> = ({ user }) => {
+const UserFormContainer: React.FC<Props> = ({ user }) => {
   const notification = useContext(NotificationContext)!;
   const auth = useContext(AuthContext);
-  const mode = useMemo(() => (auth.user?.uid === user.id ? 'edit' : 'view'), [
-    auth,
-    user,
-  ]);
+  const mode = auth.user?.uid === user.id ? 'edit' : 'view';
 
   const [programs, specializations] = [
-    useQuery<{ programs: IProgram[] }>(GET_PROGRAMS),
-    useQuery<{ specializations: ISpecialization[] }>(GET_SPECIALIZATIONS),
+    useProgramsQuery(),
+    useSpecializationsQuery(),
   ];
 
-  const [update, updateResult] = useMutation(UPDATE_USER);
+  const [update, { loading }] = useUpdateUserMutation();
 
-  const handleSubmit = async (form: FormData) => {
+  const handleSubmit = async (user: UserInputType) => {
     try {
-      await update({ variables: { user: form } });
+      await update({ variables: { user } });
       notification.success('User updated.');
     } catch {
       notification.error('Something went wrong.');
@@ -47,7 +45,7 @@ const UserFormContainer: React.FC<IProps> = ({ user }) => {
       data={{ ...programs.data, ...specializations.data }}
       mode={mode}
       user={user}
-      disabled={updateResult.loading}
+      disabled={loading}
       onSubmit={handleSubmit}
     />
   );

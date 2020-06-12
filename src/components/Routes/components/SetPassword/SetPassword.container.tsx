@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router';
-import queryString from 'query-string';
-import { FirebaseContext } from '../../../Firebase';
-import { NotificationContext } from '../../../Notification';
-import { Nullable } from '../../../../core';
+import qs from 'query-string';
+
+import { Nullable } from 'src/core';
+import { FirebaseContext } from 'src/components/Firebase';
+import { NotificationContext } from 'src/components/Notification';
 import SetPassword, { FormData } from './SetPassword';
 
 const SetPasswordContainer: React.FC = () => {
@@ -13,7 +14,7 @@ const SetPasswordContainer: React.FC = () => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<Nullable<string>>(null);
-  const params = queryString.parse(useLocation().search);
+  const params = qs.parse(useLocation().search);
   const oobCode = typeof params.oobCode === 'string' ? params.oobCode : null;
 
   useEffect(() => {

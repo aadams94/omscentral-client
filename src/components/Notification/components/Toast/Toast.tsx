@@ -8,6 +8,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
+
 import { useStyles } from './Toast.styles';
 
 const variantIcon = {
@@ -19,13 +20,13 @@ const variantIcon = {
 
 export type Variant = 'success' | 'warning' | 'error' | 'info';
 
-export interface IProps {
+export interface Props {
   message: string;
   variant: Variant;
   onClose: () => void;
 }
 
-const Toast: React.FC<IProps> = ({ message, variant, onClose }) => {
+const Toast: React.FC<Props> = ({ message, variant, onClose }) => {
   const classes = useStyles();
   const Icon = variantIcon[variant];
 

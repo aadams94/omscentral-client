@@ -1,6 +1,7 @@
 import React from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
-import apollo from '../../data/apollo';
+
+import apollo from 'src/data/apollo';
 
 const Apollo: React.FC = ({ children }) => (
   <ApolloProvider client={apollo}>{children}</ApolloProvider>

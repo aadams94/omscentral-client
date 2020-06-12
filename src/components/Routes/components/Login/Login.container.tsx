@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { auth } from 'firebase/app';
-import { FirebaseContext } from '../../../Firebase';
-import { NotificationContext } from '../../../Notification';
+
+import { FirebaseContext } from 'src/components/Firebase';
+import { NotificationContext } from 'src/components/Notification';
 import Login, { FormData } from './Login';
 
 const LoginContainer: React.FC = () => {

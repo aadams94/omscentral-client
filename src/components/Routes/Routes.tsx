@@ -1,17 +1,20 @@
 import React, { lazy } from 'react';
 import { Switch, Redirect } from 'react-router';
-import { paths } from '../../constants';
-import Route from './components/Route';
+
+import { paths } from 'src/constants';
 import Courses from './components/Courses';
 import Reviews from './components/Reviews';
+import Route from './components/Route';
 
-interface IRoute {
+interface Route {
   path: string;
   auth?: boolean;
   component: React.ComponentType<any>;
 }
 
-const routes: IRoute[] = [
+const Error404: React.FC = () => <Redirect to="/error/404" />;
+
+const routes: Route[] = [
   {
     path: paths.privacy,
     component: lazy(() => import('./components/Privacy')),
@@ -85,7 +88,7 @@ const routes: IRoute[] = [
   },
   {
     path: '*',
-    component: () => <Redirect to="/error/404" />,
+    component: Error404,
   },
 ];
 

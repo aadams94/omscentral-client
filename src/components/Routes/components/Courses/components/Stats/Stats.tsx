@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import { Nullable } from '../../../../../../core';
-import round from '../../../../../../utils/round';
+
+import { Nullable } from 'src/core';
+import round from 'src/utils/round';
 import { useStyles } from './Stats.styles';
 
-interface IProps {
+interface Props {
   mean?: number;
   median?: number;
   mode?: number;
@@ -13,7 +14,7 @@ interface IProps {
   max?: number;
 }
 
-const Stats: React.FC<IProps> = ({ mean, median, mode, min, max }) => {
+const Stats: React.FC<Props> = ({ mean, median, mode, min, max }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<Nullable<Element>>(null);
 
@@ -79,7 +80,7 @@ const Stats: React.FC<IProps> = ({ mean, median, mode, min, max }) => {
           {JSON.stringify(
             { mean: meanRounded, median, mode, min, max },
             null,
-            2
+            2,
           )}
         </pre>
       </Popover>

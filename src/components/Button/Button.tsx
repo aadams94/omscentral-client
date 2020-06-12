@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import MaterialButton, { ButtonProps } from '@material-ui/core/Button';
+
 import { useStyles } from './Button.styles';
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
       className={clsx(
         className,
         type === 'submit' && classes.submit,
-        size === 'large' && classes.large
+        size === 'large' && classes.large,
       )}
       {...rest}
     >

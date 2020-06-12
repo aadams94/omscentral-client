@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router';
+
 import ErrorUI from './Error';
 
 const ErrorContainer: React.FC = () => {

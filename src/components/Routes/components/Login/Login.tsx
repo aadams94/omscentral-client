@@ -19,7 +19,7 @@ import Button from '../../../Button';
 import Link from '../../../Link';
 import Paper from '../../../Paper';
 import White from '../../../White';
-import { paths } from '../../../../constants';
+import { paths } from 'src/constants';
 import { useStyles } from './Login.styles';
 import { FirebaseContext } from '../../../Firebase';
 
@@ -28,13 +28,13 @@ export type FormData = {
   password: string;
 };
 
-interface IProps {
+interface Props {
   disabled?: boolean;
   onSubmit: (form: FormData) => void;
   onSocialLogin: (provider: auth.AuthProvider) => void;
 }
 
-const Login: React.FC<IProps> = ({ disabled, onSubmit, onSocialLogin }) => {
+const Login: React.FC<Props> = ({ disabled, onSubmit, onSocialLogin }) => {
   const classes = useStyles();
   const sm = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
   const { handleSubmit, register, errors } = useForm<FormData>();
@@ -152,7 +152,7 @@ const Login: React.FC<IProps> = ({ disabled, onSubmit, onSocialLogin }) => {
                     className={(classes as any)[key]}
                     aria-label={key}
                     size="medium"
-                    onClick={onSocialLogin.bind(null, provider)}
+                    onClick={() => onSocialLogin(provider)}
                     disabled={disabled}
                   >
                     {icon}

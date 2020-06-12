@@ -1,35 +1,36 @@
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
-import EditIcon from '@material-ui/icons/Edit';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import EditIcon from '@material-ui/icons/Edit';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+
+import { paths } from 'src/constants';
 import { AuthContext } from '../Auth';
-import { paths } from '../../constants';
 import { useStyles } from './Actions.styles';
 
-enum Action {
+enum ActionKey {
   CreateReview = 'create-review',
   OpenTableau = 'open-tableau',
 }
 
-interface IAction {
-  key: Action;
+interface Action {
+  key: ActionKey;
   auth?: boolean;
   name: string;
   icon: JSX.Element;
 }
 
-const actions: IAction[] = [
+const actions: Action[] = [
   {
-    key: Action.CreateReview,
+    key: ActionKey.CreateReview,
     auth: true,
     name: 'Create Review',
     icon: <EditIcon />,
   },
   {
-    key: Action.OpenTableau,
+    key: ActionKey.OpenTableau,
     name: 'Tableau Grade Reports',
     icon: <BarChartIcon />,
   },
@@ -49,21 +50,20 @@ const Actions: React.FC = () => {
     setOpen(false);
   };
 
-  const handleClick = (key: Action) => () => {
+  const handleClick = (key: ActionKey) => () => {
     setOpen(false);
     switch (key) {
-      case Action.CreateReview:
+      case ActionKey.CreateReview:
         return history.push(paths.review.create);
-      case Action.OpenTableau:
+      case ActionKey.OpenTableau:
         return window.open('https://tableau.gatech.edu');
       default:
         return;
     }
   };
 
-  const available = useMemo(
-    () => actions.filter((action) => !action.auth || auth.authenticated),
-    [auth.authenticated]
+  const available = actions.filter(
+    (action) => !action.auth || auth.authenticated,
   );
 
   return (

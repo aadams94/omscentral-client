@@ -1,12 +1,13 @@
 import React from 'react';
-import { IReview } from '../../../../data/interfaces';
-import ReviewForm from '../../../ReviewForm';
 
-interface IProps {
-  review: IReview;
+import { ReviewQuery } from 'src/graphql';
+import ReviewForm from 'src/components/ReviewForm';
+
+interface Props {
+  review: ReviewQuery['review'];
 }
 
-const ReviewUpdate: React.FC<IProps> = ({ review }) => (
+const ReviewUpdate: React.FC<Props> = ({ review }) => (
   <ReviewForm review={review} />
 );
 

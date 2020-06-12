@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import AccountIcon from '@material-ui/icons/AccountCircleOutlined';
 import Avatar from '@material-ui/core/Avatar';
@@ -6,33 +6,25 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+
+import { UserQuery, Specialization, Program, UserInputType } from 'src/graphql';
 import Button from '../Button';
 import Paper from '../Paper';
 import White from '../White';
-import { IProgram, ISpecialization, IUser } from '../../data/interfaces';
 import { useStyles } from './UserForm.styles';
 
-export type FormData = {
-  id: string;
-  auth_provider: string;
-  email: string;
-  name: string;
-  program_id: string;
-  specialization_id: string;
-};
-
-interface IProps {
+interface Props {
   data: {
-    programs: IProgram[];
-    specializations: ISpecialization[];
+    programs: Program[];
+    specializations: Specialization[];
   };
   mode: 'edit' | 'view';
-  user?: IUser;
+  user?: UserQuery['user'];
   disabled?: boolean;
-  onSubmit: (form: FormData) => void;
+  onSubmit: (user: UserInputType) => void;
 }
 
-const UserForm: React.FC<IProps> = ({
+const UserForm: React.FC<Props> = ({
   data,
   mode,
   user,
@@ -40,36 +32,16 @@ const UserForm: React.FC<IProps> = ({
   onSubmit,
 }) => {
   const classes = useStyles();
-
-  const { handleSubmit, register, errors, watch, setValue } = useForm<FormData>(
-    {
-      defaultValues: {
-        id: user?.id,
-        auth_provider: user?.auth_provider,
-        email: user?.email || '',
-        name: user?.name || '',
-        program_id: user?.program_id || '',
-        specialization_id: user?.specialization_id || '',
-      },
-    }
-  );
-
+  const form = useForm<UserInputType>({ defaultValues: user });
+  const { handleSubmit, register, errors, watch, setValue } = form;
   const { program_id } = watch();
 
-  const specializations = useMemo(
-    () =>
-      program_id
-        ? (data?.specializations || []).filter(
-            (s) => s.program_id === program_id
-          )
-        : [],
-    [program_id, data]
-  );
+  const specializations = program_id
+    ? (data?.specializations || []).filter((s) => s.program_id === program_id)
+    : [];
 
-  const [title, action] = useMemo(
-    () => (mode === 'edit' ? ['Update User', 'Update'] : ['User', null]),
-    [mode]
-  );
+  const [title, action] =
+    mode === 'edit' ? ['Update User', 'Update'] : ['User', null];
 
   return (
     <Container component="main" maxWidth="sm">

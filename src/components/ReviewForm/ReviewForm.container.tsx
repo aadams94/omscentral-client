@@ -1,61 +1,56 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+
+import {
+  useCoursesQuery,
+  useSemestersQuery,
+  useInsertReviewMutation,
+  useUpdateReviewMutation,
+  useDeleteReviewMutation,
+  ReviewInputType,
+  ReviewQuery,
+} from 'src/graphql';
 import { FirebaseContext } from '../Firebase';
 import { NotificationContext } from '../Notification';
-import { ICourse, ISemester, IReview } from '../../data/interfaces';
-import {
-  GET_COURSES,
-  GET_SEMESTERS,
-  INSERT_REVIEW as INSERT,
-  UPDATE_REVIEW as UPDATE,
-  DELETE_REVIEW as DELETE,
-} from '../../data/queries';
 import { AuthContext } from '../Auth';
-import ReviewForm, { FormData } from './ReviewForm';
+import ReviewForm from './ReviewForm';
 
-interface IProps {
-  review?: IReview;
+interface Props {
+  review?: ReviewQuery['review'];
 }
 
-const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
+const ReviewFormContainer: React.FC<Props> = ({ review }) => {
   const firebase = useContext(FirebaseContext);
   const notification = useContext(NotificationContext)!;
   const history = useHistory();
   const auth = useContext(AuthContext);
-  const mode = useMemo(
-    () =>
-      !review ? 'make' : auth.user?.uid === review.author_id ? 'edit' : 'view',
-    [auth, review]
-  );
 
-  const [courses, semesters] = [
-    useQuery<{ courses: ICourse[] }>(GET_COURSES),
-    useQuery<{ semesters: ISemester[] }>(GET_SEMESTERS),
-  ];
+  const mode = !review
+    ? 'make'
+    : auth.user?.uid === review.author_id
+    ? 'edit'
+    : 'view';
+
+  const [courses, semesters] = [useCoursesQuery(), useSemestersQuery()];
 
   const [
     [insert, { loading: creating }],
     [update, { loading: updating }],
     [remove, { loading: removing }],
   ] = [
-    useMutation<{ insertReview: IReview }, { review: Partial<IReview> }>(
-      INSERT
-    ),
-    useMutation<{ updateReview: IReview }, { review: Partial<IReview> }>(
-      UPDATE
-    ),
-    useMutation<{ deleteReview: IReview }, { id: string }>(DELETE),
+    useInsertReviewMutation(),
+    useUpdateReviewMutation(),
+    useDeleteReviewMutation(),
   ];
 
-  const handleSubmit = async (form: FormData) => {
+  const handleSubmit = async (review: ReviewInputType) => {
     try {
       const author_id = auth.user!.uid;
       if (mode === 'make') {
         const result = await insert({
           variables: {
             review: {
-              ...form,
+              ...review,
               author_id,
             },
           },
@@ -68,9 +63,9 @@ const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
 
         notification.success('Review published.');
 
-        history.push(`/course/${form.course_id}`);
+        history.push(`/course/${review.course_id}`);
       } else if (mode === 'edit') {
-        await update({ variables: { review: { ...form, author_id } } });
+        await update({ variables: { review: { ...review, author_id } } });
 
         firebase.analytics.logEvent('update_item', {
           content_type: 'review',
@@ -79,7 +74,7 @@ const ReviewFormContainer: React.FC<IProps> = ({ review }) => {
 
         notification.success('Review updated.');
 
-        history.push(`/course/${form.course_id}`);
+        history.push(`/course/${review.course_id}`);
       }
     } catch {
       notification.error('Something went wrong.');

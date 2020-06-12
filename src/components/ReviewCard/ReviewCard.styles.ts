@@ -60,7 +60,7 @@ export const useStyles = makeStyles((theme) => ({
         borderColor: color,
       },
     }),
-    {}
+    {},
   ),
   ...[
     [5, green[900]],
@@ -76,6 +76,6 @@ export const useStyles = makeStyles((theme) => ({
         borderColor: color,
       },
     }),
-    {}
+    {},
   ),
 }));

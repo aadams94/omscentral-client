@@ -1,0 +1,19 @@
+overwrite: true
+schema: src/data/schema.graphql
+documents: src/data/*/*.graphql
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+    - eslint --fix || true
+generates:
+  src/graphql/index.tsx:
+    config:
+      reactApolloVersion: 2
+      withHooks: true
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+  src/graphql/graphql.schema.json:
+    plugins:
+      - introspection

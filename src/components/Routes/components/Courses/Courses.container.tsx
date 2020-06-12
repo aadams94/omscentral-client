@@ -1,14 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useQuery } from '@apollo/react-hooks';
-import { ICourse } from '../../../../data/interfaces';
-import { GET_COURSES } from '../../../../data/queries';
+
+import { useCoursesQuery } from 'src/graphql';
 import Courses from './Courses';
 
 const CoursesContainer: React.FC = () => {
-  const { data, loading } = useQuery<{ courses: ICourse[] }>(GET_COURSES, {
-    fetchPolicy: 'no-cache',
-  });
+  const { data, loading } = useCoursesQuery({ fetchPolicy: 'no-cache' });
 
   return (
     <>
