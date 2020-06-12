@@ -2,7 +2,7 @@ import useStorage from './useStorage';
 
 export default function useSessionStorage<T = any>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ) {
   return useStorage<T>(key, initialValue, window.localStorage);
 }
