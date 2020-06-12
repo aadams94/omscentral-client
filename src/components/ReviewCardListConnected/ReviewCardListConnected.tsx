@@ -1,13 +1,14 @@
 import React from 'react';
-import { IReview } from '../../data/interfaces';
+
+import { ReviewsQuery } from 'src/graphql';
 import Button from '../Button';
 import ReviewCardList from '../ReviewCardList';
 import Toolbar, { SortKey } from './components/Toolbar';
 
 export { SortKey };
 
-interface IProps {
-  reviews?: IReview[];
+interface Props {
+  reviews?: ReviewsQuery['reviews'];
   sortKey: SortKey;
   onSortKeyChange: (key: SortKey) => void;
   onLoadMore?: () => void;
@@ -15,7 +16,7 @@ interface IProps {
   before?: JSX.Element;
 }
 
-const ReviewCardListConnected: React.FC<IProps> = ({
+const ReviewCardListConnected: React.FC<Props> = ({
   reviews,
   sortKey,
   onSortKeyChange,

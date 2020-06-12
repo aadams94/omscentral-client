@@ -1,30 +1,31 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Theme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Button from '../../../Button';
-import Link from '../../../Link';
-import Paper from '../../../Paper';
-import White from '../../../White';
-import { paths } from '../../../../constants';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { paths } from 'src/constants';
+import Button from 'src/components/Button';
+import Link from 'src/components/Link';
+import Paper from 'src/components/Paper';
+import White from 'src/components/White';
 import { useStyles } from './ResetPassword.styles';
 
 export type FormData = {
   email: string;
 };
 
-interface IProps {
+interface Props {
   disabled?: boolean;
   onSubmit: (form: FormData) => void;
 }
 
-const ResetPassword: React.FC<IProps> = ({ disabled, onSubmit }) => {
+const ResetPassword: React.FC<Props> = ({ disabled, onSubmit }) => {
   const classes = useStyles();
   const sm = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
   const { handleSubmit, register, errors } = useForm<FormData>();

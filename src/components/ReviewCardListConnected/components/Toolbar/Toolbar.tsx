@@ -1,6 +1,7 @@
 import React from 'react';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import Typography from '@material-ui/core/Typography';
+
 import Grow from '../../../Grow';
 import Menu from '../../../Menu';
 import { useStyles } from './Toolbar.styles';
@@ -10,13 +11,13 @@ export enum SortKey {
   Semester = 'semester_id',
 }
 
-interface IProps {
+interface Props {
   sortKey: SortKey;
   onSortKeyChange: (key: SortKey) => void;
   message?: string;
 }
 
-const Toolbar: React.FC<IProps> = ({ sortKey, onSortKeyChange, message }) => {
+const Toolbar: React.FC<Props> = ({ sortKey, onSortKeyChange, message }) => {
   const classes = useStyles();
 
   const items: [SortKey, string][] = [

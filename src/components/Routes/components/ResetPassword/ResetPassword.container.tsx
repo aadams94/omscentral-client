@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { FirebaseContext } from '../../../Firebase';
-import { NotificationContext } from '../../../Notification';
+
+import { FirebaseContext } from 'src/components/Firebase';
+import { NotificationContext } from 'src/components/Notification';
 import ResetPassword, { FormData } from './ResetPassword';
 
 const ResetPasswordContainer: React.FC = () => {

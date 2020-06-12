@@ -1,7 +1,8 @@
 import React from 'react';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Menu from '../../../Menu';
-import { paths } from '../../../../constants';
+
+import { paths } from 'src/constants';
+import Menu from 'src/components/Menu';
 
 const UserMenu: React.FC = () => (
   <Menu

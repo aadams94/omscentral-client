@@ -1,17 +1,16 @@
 import React from 'react';
-import { GET_COURSE_REVIEWS } from '../../../../data/queries';
-import { ICourse } from '../../../../data/interfaces';
-import ReviewCardListConnected from '../../../ReviewCardListConnected';
+
+import { Course as CourseType } from 'src/graphql';
+import ReviewCardListConnected from 'src/components/ReviewCardListConnected';
 import Metrics from './components/Metrics';
 
-interface IProps {
-  course: ICourse;
+interface Props {
+  course: CourseType;
 }
 
-const Course: React.FC<IProps> = ({ course }) => (
+const Course: React.FC<Props> = ({ course }) => (
   <ReviewCardListConnected
-    query={GET_COURSE_REVIEWS}
-    variables={{ id: course.id }}
+    variables={{ course_id: course.id }}
     before={<Metrics course={course} />}
   />
 );

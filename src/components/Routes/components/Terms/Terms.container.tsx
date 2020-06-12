@@ -1,16 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_CONFIG } from '../../../../data/queries';
-import { IConfig } from '../../../../data/interfaces';
-import Static from '../../../Static';
+
+import { useConfigQuery } from 'src/graphql';
+import Static from 'src/components/Static';
 
 const Terms: React.FC = () => {
-  const { data } = useQuery<{ config: IConfig }>(GET_CONFIG, {
-    variables: {
-      id: 'terms',
-    },
-  });
+  const { data } = useConfigQuery({ variables: { id: 'terms' } });
 
   return (
     <>

@@ -4,15 +4,16 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import round from '../../../../../../utils/round';
-import { ICourse } from '../../../../../../data/interfaces';
+
+import { Course } from 'src/graphql';
+import round from 'src/utils/round';
 import { useStyles } from './Metrics.styles';
 
-interface IProps {
-  course: ICourse;
+interface Props {
+  course: Course;
 }
 
-const Metrics: React.FC<IProps> = ({ course: { metric } }) => {
+const Metrics: React.FC<Props> = ({ course: { metric } }) => {
   const classes = useStyles();
 
   if (!metric) {

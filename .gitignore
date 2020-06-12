@@ -23,3 +23,6 @@
 
 # firebase
 .firebase/
+
+# graphql
+src/graphql/

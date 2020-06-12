@@ -2,12 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 
-interface IProps {
+interface Props {
   path: string;
   onClick?: () => void | Promise<void>;
 }
 
-const NavbarButton: React.FC<IProps> = ({ children, path, onClick }) => {
+const NavbarButton: React.FC<Props> = ({ children, path, onClick }) => {
   const history = useHistory();
 
   const handleClick = async () => {

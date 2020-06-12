@@ -1,6 +1,7 @@
 import React from 'react';
 import TableCell, { TableCellProps } from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+
 import { useStyles } from './HeadCell.styles';
 
 export enum SortKey {
@@ -75,13 +76,13 @@ const config: {
   },
 };
 
-interface IProps {
+interface Props {
   id: SortKey;
   orderBy: SortKey;
   order: SortDirection;
 }
 
-const HeadCell: React.FC<TableCellProps & IProps> = ({
+const HeadCell: React.FC<TableCellProps & Props> = ({
   id,
   orderBy,
   order,

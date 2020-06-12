@@ -1,6 +1,7 @@
 import React, { useContext, Suspense } from 'react';
 import { Router } from 'react-router-dom';
-import { browserHistory } from '../../constants';
+
+import { browserHistory } from 'src/constants';
 import { AuthContext } from '../Auth';
 import Actions from '../Actions';
 import Loading from '../Loading';

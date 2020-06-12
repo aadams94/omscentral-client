@@ -9,7 +9,7 @@ import { useStyles } from './Toolbar.styles';
 
 export type TableSize = 'small' | 'medium';
 
-interface IProps {
+interface Props {
   size: TableSize;
   onSizeChange: (changeTo: TableSize) => void;
   foundational: boolean;
@@ -20,7 +20,7 @@ interface IProps {
   onFilterChange: (changeTo: string) => void;
 }
 
-const Toolbar: React.FC<IProps> = ({
+const Toolbar: React.FC<Props> = ({
   size,
   onSizeChange,
   foundational,

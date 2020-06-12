@@ -2,7 +2,7 @@ import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
-interface IProps {
+interface Props {
   autoFocus?: boolean;
   disabled?: boolean;
   error?: boolean;
@@ -20,7 +20,7 @@ interface IProps {
   value: any;
 }
 
-const Typeahead: React.FC<IProps> = ({
+const Typeahead: React.FC<Props> = ({
   autoFocus,
   disabled,
   error,

@@ -3,14 +3,16 @@ import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from 'apollo-link-error';
-import { apolloConfig } from '../config';
-import { browserHistory } from '../constants';
+import * as sentry from '@sentry/browser';
+
+import { apolloConfig } from 'src/config';
+import { browserHistory } from 'src/constants';
 
 const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ networkError }) => {
       if (networkError) {
-        // const code = (networkError as any).statusCode || 0;
+        sentry.captureException(networkError);
         const code = 500;
         browserHistory.push(`/error/${code}`);
       }

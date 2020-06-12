@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import Markdown from 'react-markdown';
 import { useHistory } from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import Markdown from 'react-markdown';
 import { Theme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -19,19 +18,21 @@ import SummerIcon from '@material-ui/icons/Brightness5';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import UnknownIcon from '@material-ui/icons/Help';
-import Grow from '../Grow';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { reviewMeta } from 'src/constants';
+import { ReviewsQuery } from 'src/graphql';
 import { AuthContext } from '../Auth';
-import { IReview } from '../../data/interfaces';
-import { reviewMeta } from '../../constants';
+import Grow from '../Grow';
 import { useStyles } from './ReviewCard.styles';
 
-interface IProps {
-  review: IReview;
+interface Props {
+  review: ReviewsQuery['reviews'][0];
   deepLink: (id: string) => string;
   onDeepLinkCopy: (id: string) => void;
 }
 
-const ReviewCard: React.FC<IProps> = ({
+const ReviewCard: React.FC<Props> = ({
   review: {
     id,
     author,

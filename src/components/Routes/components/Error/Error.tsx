@@ -3,16 +3,17 @@ import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
 import ErrorOutlinedIcon from '@material-ui/icons/ErrorOutlined';
 import Typography from '@material-ui/core/Typography';
-import Link from '../../../Link';
-import Paper from '../../../Paper';
-import { paths } from '../../../../constants';
+
+import { paths } from 'src/constants';
+import Link from 'src/components/Link';
+import Paper from 'src/components/Paper';
 import { useStyles } from './Error.styles';
 
-interface IProps {
+interface Props {
   text: string;
 }
 
-const ErrorUI: React.FC<IProps> = ({ text }) => {
+const ErrorUI: React.FC<Props> = ({ text }) => {
   const classes = useStyles();
 
   return (

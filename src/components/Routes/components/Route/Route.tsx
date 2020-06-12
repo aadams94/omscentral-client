@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { Route as RouterRoute, Redirect, RouteProps } from 'react-router';
-import { AuthContext } from '../../../Auth';
-import { paths } from '../../../../constants';
 
-interface IProps extends RouteProps {
+import { paths } from 'src/constants';
+import { AuthContext } from 'src/components/Auth';
+
+interface Props extends RouteProps {
   /**
    * If `true`, user must be logged in.
    * If `false`, user must not be logged in.
@@ -12,7 +13,7 @@ interface IProps extends RouteProps {
   auth?: boolean;
 }
 
-const Route: React.FC<IProps> = ({ auth, ...props }) => {
+const Route: React.FC<Props> = ({ auth, ...props }) => {
   const { authenticated } = useContext(AuthContext);
 
   const allow =

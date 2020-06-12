@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useStyles } from './Paper.styles';
 
 const Paper: React.FC = ({ children }) => {

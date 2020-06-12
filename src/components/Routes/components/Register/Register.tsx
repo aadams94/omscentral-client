@@ -6,11 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Button from '../../../Button';
-import Link from '../../../Link';
-import Paper from '../../../Paper';
-import White from '../../../White';
-import { paths } from '../../../../constants';
+
+import { paths } from 'src/constants';
+import Button from 'src/components/Button';
+import Link from 'src/components/Link';
+import Paper from 'src/components/Paper';
+import White from 'src/components/White';
 import { useStyles } from './Register.styles';
 
 export type FormData = {
@@ -18,12 +19,12 @@ export type FormData = {
   password: string;
 };
 
-interface IProps {
+interface Props {
   disabled?: boolean;
   onSubmit: (form: FormData) => void;
 }
 
-const Register: React.FC<IProps> = ({ disabled, onSubmit }) => {
+const Register: React.FC<Props> = ({ disabled, onSubmit }) => {
   const classes = useStyles();
   const { handleSubmit, register, errors } = useForm<FormData>();
 

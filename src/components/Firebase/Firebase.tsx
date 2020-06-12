@@ -3,14 +3,15 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/performance';
 import 'firebase/analytics';
-import { firebaseConfig } from '../../config';
+
+import { firebaseConfig } from 'src/config';
 
 const app = firebase.initializeApp(firebaseConfig);
 
 firebase.performance(app);
 firebase.analytics(app);
 
-interface IFirebase {
+interface Firebase {
   analytics: firebase.analytics.Analytics;
   auth: firebase.auth.Auth;
   authProviders: {
@@ -21,7 +22,7 @@ interface IFirebase {
   };
 }
 
-const value: IFirebase = {
+const value: Firebase = {
   analytics: app.analytics(),
   auth: app.auth(),
   authProviders: {
@@ -51,7 +52,7 @@ const value: IFirebase = {
   },
 };
 
-export const FirebaseContext = createContext<IFirebase>(value);
+export const FirebaseContext = createContext<Firebase>(value);
 
 const Firebase: React.FC = ({ children }) => (
   <FirebaseContext.Provider value={value}>{children}</FirebaseContext.Provider>

@@ -1,7 +1,7 @@
-export interface IApolloConfig {
+export interface ApolloConfig {
   uri: string;
 }
 
-export const config: IApolloConfig = {
+export const config: ApolloConfig = {
   uri: process.env.REACT_APP_API_URI!,
 };

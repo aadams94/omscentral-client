@@ -1,17 +1,17 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { Nullable } from '../../core';
-import Toast, { IProps as IToastProps, Variant } from './components/Toast';
+import { Nullable } from 'src/core';
+import Toast, { Props as IToastProps, Variant } from './components/Toast';
 
 type NotifyFn = (message: string) => void;
 
-interface INotification {
+interface Notification {
   success: NotifyFn;
   warning: NotifyFn;
   error: NotifyFn;
   info: NotifyFn;
 }
 
-export const NotificationContext = createContext<Nullable<INotification>>(null);
+export const NotificationContext = createContext<Nullable<Notification>>(null);
 
 const Notification: React.FC = ({ children }) => {
   const [toast, setToast] = useState<Nullable<Partial<IToastProps>>>(null);
