@@ -8,8 +8,10 @@ import { firebaseConfig } from 'src/config';
 
 const app = firebase.initializeApp(firebaseConfig);
 
-firebase.performance(app);
-firebase.analytics(app);
+if (process.env.NODE === 'production') {
+  firebase.performance(app);
+  firebase.analytics(app);
+}
 
 interface Firebase {
   analytics: firebase.analytics.Analytics;
