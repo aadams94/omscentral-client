@@ -27,8 +27,12 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
     fetchPolicy: 'cache-and-network',
   });
 
-  const handleLoadMore = () => {
-    fetchMore({
+  const handleLoadMore = async () => {
+    if (loading) {
+      return;
+    }
+
+    await fetchMore({
       variables: {
         offset: data!.reviews!.length,
       },

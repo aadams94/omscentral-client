@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { ReviewsQuery } from 'src/graphql';
-import Button from '../Button';
 import ReviewCardList from '../ReviewCardList';
+import Visibility from '../Visibility';
 import Toolbar, { SortKey } from './components/Toolbar';
 
 export { SortKey };
@@ -33,20 +33,7 @@ const ReviewCardListConnected: React.FC<Props> = ({
         <Toolbar sortKey={sortKey} onSortKeyChange={onSortKeyChange} />
       </>
     }
-    after={
-      onLoadMore && (
-        <Button
-          fullWidth
-          onClick={onLoadMore}
-          disabled={loading}
-          color="default"
-          variant="outlined"
-          size="large"
-        >
-          Load More
-        </Button>
-      )
-    }
+    after={<Visibility onVisible={onLoadMore} />}
   />
 );
 
