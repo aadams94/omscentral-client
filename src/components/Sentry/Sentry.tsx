@@ -17,8 +17,8 @@ const Sentry: React.FC = () => {
       sentry.setUser(
         user && {
           id: user.uid,
-          email: user.email || undefined,
-          username: user.displayName || undefined,
+          email: user.email || '',
+          username: user.displayName || '',
         },
       );
   }, [user, dsn]);

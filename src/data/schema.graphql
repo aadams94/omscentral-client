@@ -101,12 +101,12 @@ type ReviewMeta {
   extraCredit: Boolean!
   firstCourse: Boolean!
   frontLoad: Boolean!
-  groupProjects: Int
-  moneySpent: Int
+  groupProjects: Float
+  moneySpent: Float
   proctortrack: Boolean!
-  program: Int
-  projects: Int
-  tests: Int
+  program: Float
+  projects: Float
+  tests: Float
 }
 
 """
@@ -129,7 +129,7 @@ type Review {
   "How did the author feel about the course?"
   rating: Int
   "How many hours did the author spend on course work per week?"
-  workload: Int
+  workload: Float
   "What text did the author provide?"
   body: String
   "Legacy data."
@@ -164,10 +164,10 @@ type User {
   anonymous: Boolean!
   "Program in which user is enrolled."
   program: Program
-  program_id: ID
+  program_id: String
   "Specialization in which user is enrolled."
   specialization: Specialization
-  specialization_id: ID
+  specialization_id: String
   "Epoch time (ms)."
   last_signed_in: Float!
   "Epoch time (ms)."
@@ -209,8 +209,9 @@ type Query {
     order_by_desc: [String!] = ["created"]
     offset: Int = 0
     limit: Int = 100
-    course_id: ID
-    author_id: ID
+    course_id: String
+    author_id: String
+    semester_ids: [String!]! = []
   ): [Review!]!
 }
 
@@ -221,7 +222,7 @@ input ReviewInputType {
   semester_id: String!
   difficulty: Int!
   rating: Int!
-  workload: Int!
+  workload: Float!
   body: String!
 }
 

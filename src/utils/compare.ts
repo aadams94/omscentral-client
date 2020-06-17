@@ -3,7 +3,7 @@ function compare(a?: string, b?: string): number;
 function compare(a?: number, b?: number): number;
 function compare(
   a?: boolean | string | number,
-  b?: boolean | string | number
+  b?: boolean | string | number,
 ): number {
   const aUndefined = typeof a === 'undefined';
   const bUndefined = typeof b === 'undefined';

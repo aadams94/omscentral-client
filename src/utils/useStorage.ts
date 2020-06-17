@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function useStorage<T = any>(
   key: string,
   initialValue: T,
-  storage: Storage
+  storage: Storage,
 ): [T, (value: T) => void] {
   const internalKey = `omscentral:${key}`;
 
