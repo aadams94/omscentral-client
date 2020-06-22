@@ -12,8 +12,10 @@ React app behind [omscentral.com](https://omscentral.com).
 
 ## Getting Started
 
-```
-npm install
+```sh
+rm -rf node_modules
+npm ci
+npm run generate
 ```
 
 ## Environment Variables
@@ -32,7 +34,7 @@ REACT_APP_API_URI="http://localhost:8080/graphql"
 
 This requires `PORT=8080` to be specified in the `.env` for `@omscentral/server`.
 
-Next, update the Firebase settings. This first requires creating a new project in the [Firebase console](console.firebase.google.com). Once the project is created, click "Add app" from the "Project Overview" page to add a new "Web" app to the project. Once the app is added, navigate to the "Settings" page, "General" tab, and look for "Firebase SDK snippet" > "Config". Copy the config settings to your `.env.development`.
+Next, update the Firebase settings. This first requires creating a new project in the [Firebase console](console.firebase.google.com). Once the project is created, click "Add app" from the "Project Overview" page to add a new "Web" app to the project. Once the app is added, navigate to the "Settings" page, "General" tab, and look for "Firebase SDK snippet" > "Config". Copy the config settings to your `.env.development.local`.
 
 ## OAuth
 
@@ -51,32 +53,40 @@ HTTPS=true
 
 ## Start
 
-```
+```sh
 npm start
 ```
 
-Starts server w/hot-reloading.
+Starts server w/hot-reloading. Note: If the GraphQL schema changes, `npm run generate` must be run to re-generate the GraphQL TypeScript artifacts required by client code.
 
 ## Deployment
 
-Deployment is manual via Firebase hosting (for now).
+Static assets are hosted in Firebase.
 
-To deploy, first authenticate w/firebase:
+### Manual
 
-```
+First authenticate w/firebase:
+
+```sh
 npm i -g firebase-tools
 firebase login
 ```
 
 Then, make sure your Firebase project is active:
 
-```
+```sh
 firebase use <your_project_name>
 ```
 
 Finally, build the static assets and deploy them to Firebase hosting:
 
-```
+```sh
 npm run build:staging
 firebase deploy --only hosting
 ```
+
+Use `build:staging` to load environment variables from `.env.development`. Use `build:production` to load environment variables from `.env.production`.
+
+### CI
+
+For the live applications, GitHub Actions automate static asset compilation and deployment to Firebase. When code is merged into the `staging` branch, a new build is deployed to `omscentral-staging.firebaseapp.com`. When code is merged into `master` branch, a new build is deployed to `omscentral.com`.
