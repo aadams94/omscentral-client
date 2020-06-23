@@ -13,4 +13,13 @@ export const useStyles = makeStyles((theme) => ({
   bold: {
     fontWeight: 'bolder',
   },
+    input: {
+              //marginRight: theme.spacing(1),
+              //flex: 1,
+            
+    },
+    iconButton: {
+              padding: 10,
+            
+    },
 }));

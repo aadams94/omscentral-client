@@ -1,6 +1,9 @@
 import React from 'react';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
 
 import Grow from '../../../Grow';
 import Menu from '../../../Menu';
@@ -44,6 +47,13 @@ const Toolbar: React.FC<Props> = ({ sortKey, onSortKeyChange, message }) => {
             </Typography>
           ),
         }))}
+      />
+      <IconButton type="submit" className={classes.iconButton}>
+              <SearchIcon />
+      </IconButton>
+      <InputBase
+              className={classes.input}
+              placeholder="Search All Reviews ..."              
       />
     </div>
   );
