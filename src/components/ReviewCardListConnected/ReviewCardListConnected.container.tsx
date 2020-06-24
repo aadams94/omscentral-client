@@ -18,11 +18,13 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
   const [paginate, setPaginate] = useState(pagination);
   const [limit, setLimit] = useSession<number>('rcl:l', paginate ? 10 : 10e6);
   const [sortKey, setSortKey] = useSession<SortKey>('rcl:sk', SortKey.Semester);
+  const [searchString, setSearchString] = useSession<string>('rcl:ss', '');  
   const { data, loading, fetchMore } = useReviewsQuery({
     variables: {
       ...variables,
       limit,
       order_by_desc: [sortKey, SortKey.Created],
+      query: searchString,
     },
     fetchPolicy: 'cache-and-network',
   });
@@ -57,6 +59,13 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
       setSortKey(key);
     }
   };
+  
+  const handleSearchStringChange = (key: string) => {
+      if (key !== searchString) {
+          setSearchString(key);
+      }
+
+  };
 
   return (
     <ReviewCardListConnected
@@ -64,6 +73,7 @@ const ReviewCardListConnectedContainer: React.FC<Props> = ({
       reviews={data?.reviews}
       sortKey={sortKey}
       onSortKeyChange={handleSortKeyChange}
+      onSearchStringEntered={handleSearchStringChange}
       onLoadMore={
         paginate && data?.reviews?.length && data.reviews.length >= limit
           ? handleLoadMore

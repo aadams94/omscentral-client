@@ -11,6 +11,7 @@ interface Props {
   reviews?: ReviewsQuery['reviews'];
   sortKey: SortKey;
   onSortKeyChange: (key: SortKey) => void;
+  onSearchStringEntered: (key: string) => void;
   onLoadMore?: () => void;
   loading?: boolean;
   before?: JSX.Element;
@@ -20,6 +21,7 @@ const ReviewCardListConnected: React.FC<Props> = ({
   reviews,
   sortKey,
   onSortKeyChange,
+  onSearchStringEntered,
   onLoadMore,
   loading,
   before,
@@ -30,7 +32,7 @@ const ReviewCardListConnected: React.FC<Props> = ({
     before={
       <>
         {before}
-        <Toolbar sortKey={sortKey} onSortKeyChange={onSortKeyChange} />
+        <Toolbar sortKey={sortKey} onSortKeyChange={onSortKeyChange} onSearchStringEntered={onSearchStringEntered} />
       </>
     }
     after={<Visibility onVisible={onLoadMore} />}

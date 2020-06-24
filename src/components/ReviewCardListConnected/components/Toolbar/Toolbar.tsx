@@ -2,6 +2,7 @@ import React from 'react';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -17,16 +18,19 @@ export enum SortKey {
 interface Props {
   sortKey: SortKey;
   onSortKeyChange: (key: SortKey) => void;
+  onSearchStringEntered: (key: string) => void;
   message?: string;
 }
 
-const Toolbar: React.FC<Props> = ({ sortKey, onSortKeyChange, message }) => {
+const Toolbar: React.FC<Props> = ({ sortKey, onSortKeyChange, onSearchStringEntered, message }) => {
   const classes = useStyles();
 
   const items: [SortKey, string][] = [
     [SortKey.Semester, 'Semester'],
     [SortKey.Created, 'Created'],
   ];
+
+  let searchString = ''; 
 
   return (
     <div className={classes.toolbar}>
@@ -48,12 +52,24 @@ const Toolbar: React.FC<Props> = ({ sortKey, onSortKeyChange, message }) => {
           ),
         }))}
       />
-      <IconButton type="submit" className={classes.iconButton}>
-              <SearchIcon />
-      </IconButton>
       <InputBase
               className={classes.input}
-              placeholder="Search All Reviews ..."              
+              placeholder="Search All Reviews ..." 
+              onKeyPress={(e)=>{
+                            if(e.key === 'Enter'){
+                                onSearchStringEntered(searchString);
+                            }
+              }} 
+              onChange={(e)=>{searchString = e.target.value;}}
+              endAdornment={
+                <InputAdornment position="end">
+                      <IconButton
+                        onClick={()=>{onSearchStringEntered(searchString)}}
+                      >
+                         <SearchIcon />
+                      </IconButton> 
+                </InputAdornment>
+              }
       />
     </div>
   );
